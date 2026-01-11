@@ -9,6 +9,7 @@ const {profileApi}=require("./routes/profile");
 const {requestRouter}=require("./routes/request");
 
 const cors=require("cors");
+const userRouter = require("./routes/user");
 
 
 app.use(cors({
@@ -43,6 +44,7 @@ connectDB().then(()=>{
     app.use("/", authRouter);
     app.use("/",profileApi)
     app.use("/",requestRouter)
+    app.use("/",userRouter);
 
 
 
