@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ss9824473@gmail.com");
+  const [password, setPassword] = useState("Shubham@123");
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
