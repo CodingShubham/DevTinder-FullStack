@@ -2,9 +2,12 @@
 import axios from "axios"
 import {  useNavigate, Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function Navbar(){
 
+  const user=useSelector((store)=>store.user);
+  console.log(user);
 
   const navlink=useNavigate();
 
@@ -62,27 +65,27 @@ export default function Navbar(){
     {/* <button type="button" onClick={handleClick} className="  bg-blue-300 px-20  rounded-lg">Logout</button> */}
 
       <div className="space-x-5 bg-blue-300 relative ml-60" ref={dropdownRef}>
-  <img
+  {user&&<img
     src="/pp.jpeg"
     alt="profile"
     onClick={() => setOpen(!open)}
     className="w-10 h-10 rounded-full cursor-pointer border object-cover "
-  />
+  />}
 
   {open && (
     <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border overflow-hidden text-base">
       <Link
-        
+        to={"/profile"}
         className="block px-4 bg-white py-2 hover:bg-gray-500"
       >
         Profile
       </Link>
 
       <Link
-        to="/settings"
+        to="/connections"
         className="block bg-white px-4 py-2 hover:bg-gray-500"
       >
-        Settings
+        Connections
       </Link>
 
       <button

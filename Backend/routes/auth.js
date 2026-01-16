@@ -69,7 +69,7 @@ authRouter.post("/login", async(req,res)=>{
             sameSite: "lax",
             secure: false // set true if using https
             });
-            res.send("Logged in Sucessfully");
+            res.send(userdata);
 
           }
 

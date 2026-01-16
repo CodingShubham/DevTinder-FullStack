@@ -1,7 +1,7 @@
 const express=require("express");
 const userModel=require("../Model/user");
 const userAuth=require("../Middlewares/authMiddleware");
-const {validateEditProfile}=require("../utils/validation");
+const {validateEditProfile,validateSignupData}=require("../utils/validation");
 
 const profileApi=express.Router();
 
@@ -25,33 +25,57 @@ profileApi.get("/profile/view", userAuth, (req,res)=>{
 });
 
 
-// Update the Profile
+// Update the Profile 
 
-  profileApi.patch("/profile/edit", userAuth, async(req,res)=>{
+profileApi.patch("/profile/edit", userAuth, async (req, res) => {
+  try {
+    if (!validateEditProfile(req)) {
+      return res.status(400).send("Invalid Edit Request");
+    }
+
+    const user = req.user;
+
+    Object.keys(req.body).forEach((key) => {
+      user[key] = req.body[key];
+    });
+
+    await user.save();
+
+    res.send(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Profile update failed");
+  }
+});
+
+
+// Update the Profile  error while calling edit api saying unauthorized 
+
+//   profileApi.patch("/profile/edit", userAuth, async(req,res)=>{
 
 
 
-        try{
+//         try{
 
-            validateSignupData(req);
+//             validateSignupData(req);
 
-            if(!validateEditProfile(req)){
-                return res.status(400).send("Invalid Edit Request");
-            }
+//             if(!validateEditProfile(req)){
+//                 return res.status(400).send("Invalid Edit Request");
+//             }
 
-            const user=req.user;
-             console.log(user);
-            Object.keys(req.body).forEach((key)=>(user[key]=req.body[key]));
-            console.log(user);
-        }
+//             const user=req.user;
+//              console.log(user);
+//             Object.keys(req.body).forEach((key)=>(user[key]=req.body[key]));
+//             console.log(user);
+//         }
 
-        catch(err){
+//         catch(err){
 
-            res.status(401).send("Not Updated");
+//             res.status(401).send("Not Updated");
 
-        }
+//         }
 
-    })
+//     })
 
 
 module.exports={profileApi};

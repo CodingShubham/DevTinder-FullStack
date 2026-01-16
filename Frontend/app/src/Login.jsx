@@ -2,11 +2,15 @@ import React from 'react'
 import axios from "axios"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { addUser } from './utils/userSlice.js';
+import { useDispatch } from "react-redux";
+
 
 function Login() {
   const [email, setEmail] = useState("ss9824473@gmail.com");
   const [password, setPassword] = useState("Shubham@123");
   const navigate = useNavigate();
+  const dispatch=useDispatch();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -22,14 +26,22 @@ if (!email || !password) {
           password: password,
         },
         {
+          withCredentials: true,  
           headers: {
             "Content-Type": "application/json",
           },
+             
         }
       );
 
+      // console.log(res.data);
+      dispatch(addUser(res.data));
+      
+
+
       if (res.status === 200) {
-        navigate("/profile");
+        navigate("/feed");
+         
       }
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
