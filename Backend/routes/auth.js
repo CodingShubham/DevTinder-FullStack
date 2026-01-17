@@ -13,12 +13,21 @@ const authRouter=express.Router();
 
 authRouter.post("/signup", async(req,res)=>{
 
-    const{firstName,lastName,emailId,password}=req.body;
+    const{firstName,lastName,emailId,password,   photoUrl,
+        age,
+        gender,
+        about,}=req.body;
+        
     const user=new userModel({
         firstName,
         lastName,
         emailId,
-        password
+        password,
+        photoUrl,
+        age,
+        gender,
+        about,
+
     });
 
     validateSignupData(req);

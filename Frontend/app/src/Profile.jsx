@@ -12,8 +12,8 @@ function Profile() {
   const[age,setage]=useState("");
   const[gender,setgender]=useState("");
   const[about,setabout]=useState("");
-  const dispatch=useDispatch("");
-  const[toast,setToast]=useState(false);
+  const dispatch=useDispatch();
+    const[toast,setToast]=useState(false);
 
    useEffect(() => {
     if (user) {
@@ -31,7 +31,7 @@ function Profile() {
      e.preventDefault();
 
 try{
-    const res=await axios.patch("http://localhost:3000/profile/edit",{firstName},{withCredentials: true});
+    const res=await axios.patch("http://localhost:3000/profile/edit",{firstName,lastName,photoUrl,age,gender,about},{withCredentials: true});
     console.log("edit: ",res.data);
     dispatch(addUser(res.data));
     setToast(true);
@@ -61,7 +61,7 @@ try{
   </div>)}
       <div className='flex justify-center space-x-8'>
         
-     <div className="flex justify-center mt-20">
+     <div className="flex justify-center mt-5">
       <div className="min-h-[100px] w-80 flex justify-center border rounded-lg text-xl items-center">
         <form className="flex flex-col">
 
@@ -69,23 +69,23 @@ try{
           <input
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            className="bg-black rounded-lg text-center text-white"
+            className="bg-black rounded-lg text-base text-center text-white"
             type="text"
           />
 
-          <label className="text-white mt-3 text-base">Last Name</label>
+          <label className="text-white mt-3 text-base my-2 ">Last Name</label>
           <input
             value={lastName}
             onChange={(e) => setlastName(e.target.value)}
-            className="bg-black rounded-lg text-center text-white"
+            className="bg-black rounded-lg text-center text-base text-white"
             type="text"
           />
 
-          <label className="text-white mt-3 text-base">Photo URL</label>
+          <label className="text-white mt-3  my-2 text-base">Photo URL</label>
           <input
             value={photoUrl}
             onChange={(e) => setphotoUrl(e.target.value)}
-            className="bg-black rounded-lg text-center text-white"
+            className="bg-black rounded-lg text-center text-base text-white"
             type="url"
           />
 
@@ -93,7 +93,7 @@ try{
           <input
             value={age}
             onChange={(e) => setage(e.target.value)}
-            className="bg-black rounded-lg text-center text-white"
+            className="bg-black rounded-lg text-center text-base text-white"
             type="number"
           />
 
@@ -101,7 +101,7 @@ try{
           <input
             value={gender}
             onChange={(e) => setgender(e.target.value)}
-            className="bg-black rounded-lg text-center text-white"
+            className="bg-black rounded-lg text-center text-base text-white"
             type="text"
           />
 
@@ -109,7 +109,7 @@ try{
           <textarea
             value={about}
             onChange={(e) => setabout(e.target.value)}
-            className="bg-black rounded-lg text-white p-2"
+            className="bg-black rounded-lg text-base text-white p-2"
           />
 
           <div className="flex justify-center mb-7">
@@ -126,7 +126,7 @@ try{
       </div>
     </div>
 
-     <CardFeed user={{firstName}} />
+     <CardFeed user={{firstName,lastName,photoUrl,age,gender,about}} />
      
      </div>
      

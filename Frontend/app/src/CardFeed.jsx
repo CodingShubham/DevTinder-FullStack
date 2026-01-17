@@ -3,7 +3,7 @@ import React from 'react'
 function CardFeed({user}) {
   // console.log("user",user);
 
-  const{firstName,emailId}=user;
+  const{firstName,lastName,photoUrl,age,gender,about}=user;
   return (
     <div className="min-h-screen bg-base-200 flex justify-center items-center px-6  ">
       
@@ -12,7 +12,7 @@ function CardFeed({user}) {
         {/* Top Half - Image */}
         <div className="h-58 flex justify-center items-center">
           <img
-            src="/pp.jpeg"
+            src={photoUrl}
             alt="Adidas Ultraboost"
             className=" w-full object-cover"
           />
@@ -20,10 +20,11 @@ function CardFeed({user}) {
 
         {/* Bottom Half - Content */}
         <div className="card-body text-center text-white ">
-          <h2 className="card-title justify-center">{firstName}</h2>
+          <h2 className="card-title justify-center">{firstName+" "+lastName }</h2>
+          <h2 className="card-title justify-center">{"Age-"+age }</h2>
           
           <p className="text-sm ">
-            Premium running shoe built for energy return, comfort, and long-lasting performance.
+            {about}
           </p>
 
           <div className="card-actions justify-center mt-4 space-x-6">
