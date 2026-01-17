@@ -14,7 +14,6 @@ function Connections() {
         { withCredentials: true }
       );
 
-      // ✅ FIX IS HERE
       dispatch(addConnections(res.data.data));
    
 
@@ -37,10 +36,15 @@ useEffect(() => {
       <h1 className='text-center font-semi-bold text-2xl'>Connections</h1>
      {
       connections.map((connection)=>{
+         console.log("PHOTO URL:", connection.photoUrl);
         return(
-          <div className='text-xl mx-7 flex justify-center mt-5'>
-            <h2 className='bg-gray-600 w-80 h-50 p-5   rounded-md'>{connection.firstName}</h2>
+          <div className='flex justify-center'>  
+          <div className='text-xl mx-7 flex justify-center space-x-2 mt-5 items-center  bg-gray-700 w-80 h-45 rounded-md'>
+             <img className='w-12 h-12 object-cover rounded-full ' src={connection.photoUrl } />
+            <h2 className='p-5  bg-gray-700  '>{connection.firstName}</h2>
+
           </div>
+           </div>
         )
       
       })

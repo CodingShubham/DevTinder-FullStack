@@ -10,6 +10,7 @@ import Profile from "./Profile.jsx"
 import Feed from "./Feed.jsx"
 import appStore from "./utils/appStore.js"
 import Connections from "./Connections.jsx"
+import Requests from "./Requests.jsx"
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")).render(
             <Route path="profile" element={<Profile />} />
             <Route path="feed" element={<Feed />} />
              <Route path="connections" element={<Connections />} />
+             <Route path="requests" element={<Requests />} />
           </Route>
         </Routes>
       </BrowserRouter>

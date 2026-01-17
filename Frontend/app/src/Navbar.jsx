@@ -52,19 +52,19 @@ export default function Navbar(){
 
     return(
 
-    <div  className="flex space-x-60 p-5 justify-center text-2xl bg-blue-300">
-      <h1 className="bg-blue-300 font-bold text-gray-800 cursor-pointer">
+    <div  className="flex space-x-60 p-5 justify-center text-2xl bg-blue-950">
+      <h1 className="bg-blue-950 font-bold text-gray-300 cursor-pointer">
   <Link to="/login" className=" bg-inherit">
     DEVTINIDER
   </Link>
 </h1>
 
 
-      <div className="space-x-5 bg-blue-300">
+      <div className="space-x-5 bg-blue-950">
   
     {/* <button type="button" onClick={handleClick} className="  bg-blue-300 px-20  rounded-lg">Logout</button> */}
 
-      <div className="space-x-5 bg-blue-300 relative ml-60" ref={dropdownRef}>
+      <div className="space-x-5 bg-blue-950 relative ml-60" ref={dropdownRef}>
   {user&&<img
     src="/pp.jpeg"
     alt="profile"
@@ -86,6 +86,15 @@ export default function Navbar(){
         className="block bg-white px-4 py-2 hover:bg-gray-500"
       >
         Connections
+      </Link>
+
+
+      
+      <Link
+        to="/requests"
+        className="block bg-white px-4 py-2 hover:bg-gray-500"
+      >
+        Requests
       </Link>
 
       <button

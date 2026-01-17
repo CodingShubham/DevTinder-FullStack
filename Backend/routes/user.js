@@ -46,7 +46,7 @@ userRouter.get("/user/requests/recieved", userAuth, async(req,res)=>{
 
 
 
-        }).populate("fromUserId",["firstName"]).populate("toUserId", ["firstName"]);
+        }).populate("fromUserId",["firstName","photoUrl"]).populate("toUserId", ["firstName","photoUrl"]);
 
         const data=connectionRequest.map((row)=>{
 
