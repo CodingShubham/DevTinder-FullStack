@@ -40,7 +40,7 @@ useEffect(() => {
         return(
           <div className='flex justify-center'>  
           <div className='text-xl mx-7 flex justify-center space-x-2 mt-5 items-center  bg-gray-700 w-80 h-45 rounded-md'>
-             <img className='w-12 h-12 object-cover rounded-full ' src={connection.photoUrl } />
+             <img className='w-16 h-16 object-cover rounded-full ' src={connection.photoUrl } />
             <h2 className='p-5  bg-gray-700  '>{connection.firstName}</h2>
 
           </div>
