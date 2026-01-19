@@ -13,7 +13,7 @@ const authRouter=express.Router();
 
 authRouter.post("/signup", async(req,res)=>{
 
-    const{firstName,lastName,emailId,password,   photoUrl,
+    const{firstName,lastName,emailId,password, photoUrl,
         age,
         gender,
         about,}=req.body;
@@ -39,8 +39,21 @@ authRouter.post("/signup", async(req,res)=>{
 
     
 
-    await user.save();
-    res.send("user registered sucessfully");
+   
+    const savedUser= await user.save();
+    
+            const token= await jwt.sign({_id:savedUser._id}, "shubham678");
+      
+
+            //create cookie
+
+            res.cookie("token",token,{
+            httpOnly: true,
+            sameSite: "lax",
+            secure: false 
+            });
+            res.send(savedUser); 
+    res.json({message:"user registered sucessfully", data:savedUser});
 
 
 });
@@ -69,14 +82,14 @@ authRouter.post("/login", async(req,res)=>{
             //create jwt token and pass in the cookie
 
             const token= await jwt.sign({_id:userdata._id}, "shubham678");
-            console.log(token);
+      
 
             //create cookie
 
             res.cookie("token",token,{
             httpOnly: true,
             sameSite: "lax",
-            secure: false // set true if using https
+            secure: false 
             });
             res.send(userdata);
 

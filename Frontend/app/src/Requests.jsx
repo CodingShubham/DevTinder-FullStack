@@ -6,7 +6,7 @@ import { addRequests } from "./utils/requestsSlice";
 
 function Requests(){
       const dispatch=useDispatch();
-      const request=useSelector((store)=>store.requests);
+      const request=useSelector((store)=>store.requests || []);
        const requestReceived= async()=>{
             try{
 
@@ -51,7 +51,7 @@ return(
         request.map((request)=>{
 
           return(
-            <div className=" text-center">
+            <div key={request._id} className=" text-center">
               <h1 className="text-xl font-semibold ">Friend Requests</h1>
 
               <div className="flex justify-center">

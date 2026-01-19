@@ -25,6 +25,13 @@ function Feed() {
     feedUser();
   }, []);
 
+if(!feed){
+  return;
+}
+  if(feed.length<=0){
+    return <h1 className="text-base text-white flex justify-center mt-5">No Feed Available Right Now !!!</h1>
+  }
+
   return (
     (feed &&
     <div>

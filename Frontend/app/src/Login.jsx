@@ -11,6 +11,9 @@ function Login() {
   const [password, setPassword] = useState("Shubham@123");
   const navigate = useNavigate();
   const dispatch=useDispatch();
+  const[islogin,setIslogin]=useState(true);
+  const[firstname,setFirstName]=useState("");
+   const[lasttname,setlastName]=useState("");
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -49,14 +52,62 @@ if (!email || !password) {
     }
   };
 
+    const handleSignUp=async(e)=>{
+
+      try{
+         e.preventDefault();
+        const res=await axios.post("http://localhost:3000/signup",{ firstName: firstname,
+        lastName: lasttname,
+        emailId: email,
+        password},{withCredentials:true})
+          dispatch(addUser(res.data))
+          return  navigate("/profile");
+        }
+
+      
+
+      catch(err){
+
+        console.error(err);
+
+      }
+
+    }
+
+
+
   return (
     <div className="flex justify-center mt-20">
-      <div className="h-[300px] w-80 flex justify-center border rounded-lg text-xl items-center">
-        <form onSubmit={handleClick} className="flex flex-col">
+      
+        
+      <div className="min-h-[100px] w-80 flex justify-center border rounded-lg text-xl items-center">
+        
+        <form onSubmit={islogin?handleClick:handleSignUp} className="flex flex-col">
+            <h2 className='text-white text-center mt-2'>{islogin?"Sign In":"Sign Up"}</h2>
+       { !islogin && ( <> <input
+            onChange={(e) =>setFirstName (e.target.value)}
+            value={firstname}
+            className="mt-6   bg-black rounded-lg text-center text-white text-md focus:outline-none "
+            placeholder="First Name"
+            required
+            type="text"
+          />
+
+
+           <input
+            onChange={(e) => setlastName(e.target.value)}
+            value={lasttname}
+            className="mt-6   bg-black rounded-lg text-center text-white text-md focus:outline-none "
+            placeholder="Last Name"
+            required
+            type="text"
+          />
+        </>)}
+
           <input
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            className=" bg-black rounded-lg text-center text-white text-md focus:outline-none"
+            className=" bg-black rounded-lg text-center text-white text-md focus:outline-none mt-5"
             placeholder="Email"
             type='email'
           />
@@ -71,31 +122,31 @@ if (!email || !password) {
           />
 
 
-          <div className='space-x-20'>
+
+          <div className=' flex space-x-10 '>
 
           <button
             type="submit"
-            className="  w-[65px] mt-10 border rounded-md p-1 bg-white"
-            required
+            className="  w-[80px] mt-10 mb-6  border rounded-md p-1 bg-white"
+            
           >
-            Login
+           {islogin? " Login":"Sign Up"}
           </button>
 
+          <p onClick={()=>setIslogin(!islogin)} className='text-white text-lg text-center mt-10 cursor-pointer hover:text-gray-500 underline  '>{islogin?"Existing User!! Login":"New User! Sign Up"}</p>
 
-            <button
-            type="submit"
-            className="  w-[90px] mt-10 border rounded-md p-1 bg-white"
-            required
-          >
-            Sign Up
-          </button>
+ </div>
+       
 
-
-          </div>
+      
 
           
         </form>
+
+        
       </div>
+
+      
     </div>
   );
 }

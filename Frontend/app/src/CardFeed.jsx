@@ -1,9 +1,29 @@
-import React from 'react'
+
+import { useDispatch } from 'react-redux';
+import { removeUserFeed } from './utils/feedSlice';
+import axios from 'axios';
 
 function CardFeed({user}) {
   // console.log("user",user);
+const dispatch=useDispatch();
+  const{_id,firstName,lastName,photoUrl,age,gender,about}=user;
 
-  const{firstName,lastName,photoUrl,age,gender,about}=user;
+  const handleFeed= async(status, _id)=>{
+    try{
+
+      const res=await axios.post("http://localhost:3000/request/send/"+status+"/"+_id,{},{withCredentials:true});
+      dispatch(removeUserFeed(_id));
+
+    }
+
+    catch(err){
+      console.log(err);
+    }
+  }
+
+
+  
+
   return (
     <div className="min-h-screen bg-base-200 flex justify-center items-center px-6  ">
       
@@ -13,7 +33,7 @@ function CardFeed({user}) {
         <div className="h-58 flex justify-center items-center">
           <img
             src={photoUrl}
-            alt="Adidas Ultraboost"
+            alt=""
             className=" w-full object-cover"
           />
         </div>
@@ -28,8 +48,8 @@ function CardFeed({user}) {
           </p>
 
           <div className="card-actions justify-center mt-4 space-x-6">
-            <button className="btn px-3 h-8 w-30 border-black rounded-md btn-primary bg-blue-600">Interested</button>
-             <button className="btn h-8 w-30 px-4 border-black rounded-md btn-primary bg-red-600">Ignored</button>
+            <button onClick={()=>handleFeed("interested",_id)} className="btn px-3 h-8 w-30 border-black rounded-md btn-primary bg-blue-600">Interested</button>
+             <button onClick={()=>handleFeed("ignored",_id)} className="btn h-8 w-30 px-4 border-black rounded-md btn-primary bg-red-600">Ignored</button>
           </div>
         </div>
 

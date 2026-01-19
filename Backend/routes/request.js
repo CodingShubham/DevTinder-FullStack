@@ -20,6 +20,13 @@ const requestRouter=express.Router();
                 ]
 
             });
+
+            // Handle ignored separately
+            if (status === "ignored") {
+                return res.status(200).send("User ignored");
+            }
+
+
             if(existingConnectionRequest){
 
                 return res.status(400).send("Already Connection Request Exists");
