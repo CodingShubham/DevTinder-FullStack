@@ -77,13 +77,13 @@ if (!email || !password) {
 
 
   return (
-    <div className="flex justify-center mt-20">
+    <div className="flex justify-center mt-20  ">
       
         
       <div className="min-h-[100px] w-80 flex justify-center border rounded-lg text-xl items-center">
         
         <form onSubmit={islogin?handleClick:handleSignUp} className="flex flex-col">
-            <h2 className='text-white text-center mt-2'>{islogin?"Sign In":"Sign Up"}</h2>
+            <h2 className='text-white text-center mt-2'>{islogin?"Log In":"Sign Up"}</h2>
        { !islogin && ( <> <input
             onChange={(e) =>setFirstName (e.target.value)}
             value={firstname}

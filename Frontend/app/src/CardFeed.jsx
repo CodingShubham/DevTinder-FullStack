@@ -8,7 +8,7 @@ function CardFeed({user}) {
 const dispatch=useDispatch();
   const{_id,firstName,lastName,photoUrl,age,gender,about}=user;
 
-  const handleFeed= async(status, _id)=>{
+  const handleFeed= async(status)=>{
     try{
 
       const res=await axios.post("http://localhost:3000/request/send/"+status+"/"+_id,{},{withCredentials:true});
@@ -48,8 +48,8 @@ const dispatch=useDispatch();
           </p>
 
           <div className="card-actions justify-center mt-4 space-x-6">
-            <button onClick={()=>handleFeed("interested",_id)} className="btn px-3 h-8 w-30 border-black rounded-md btn-primary bg-blue-600">Interested</button>
-             <button onClick={()=>handleFeed("ignored",_id)} className="btn h-8 w-30 px-4 border-black rounded-md btn-primary bg-red-600">Ignored</button>
+            <button onClick={()=>handleFeed("interested")} className="btn px-3 h-8 w-30 border-black rounded-md btn-primary bg-blue-600">Interested</button>
+             <button onClick={()=>handleFeed("ignored")} className="btn h-8 w-30 px-4 border-black rounded-md btn-primary bg-red-600">Ignored</button>
           </div>
         </div>
 

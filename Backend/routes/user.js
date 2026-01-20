@@ -100,7 +100,7 @@ userRouter.get("/user/requests/recieved", userAuth, async(req,res)=>{
             console.log(hideUserFromFeed);
             const user = await User.find({ $and: [{ _id: { $nin: Array.from(hideUserFromFeed) } }, { _id: { $ne: loggedINuser._id } }
             ] })
-            .select("firstName emailId").skip(skip).limit(limit);
+            .select("firstName lastName  emailId age gender photoUrl about").skip(skip).limit(limit);
 
 
           
