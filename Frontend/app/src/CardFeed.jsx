@@ -44,7 +44,7 @@ const dispatch=useDispatch();
           <h2 className="card-title justify-center">{"Age-"+age }</h2>
           
           <p className="text-sm ">
-            {about}
+            {about+" "+gender}
           </p>
 
           <div className="card-actions justify-center mt-4 space-x-6">

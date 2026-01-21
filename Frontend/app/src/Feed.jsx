@@ -15,7 +15,7 @@ function Feed() {
         withCredentials: true
       });
       dispatch(addFeed(res.data))
-      console.log("Feed data:", res.data);
+   
     } catch (err) {
       console.error("Feed fetch failed:", err.response?.data || err.message);
     }

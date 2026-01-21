@@ -37,7 +37,7 @@ if (!email || !password) {
         }
       );
 
-      // console.log(res.data);
+    
       dispatch(addUser(res.data));
       
 

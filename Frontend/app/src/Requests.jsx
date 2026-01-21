@@ -12,7 +12,7 @@ function Requests(){
 
               const res= await axios.get("http://localhost:3000/user/requests/recieved",{withCredentials:true}) 
               dispatch(addRequests(res.data.data));
-              console.log(res.data.data);
+             
               
             }
 

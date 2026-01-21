@@ -11,17 +11,15 @@ const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 const dispatch=useDispatch();
   const user=useSelector((store)=>store.user);
-  console.log(user);
+ 
 
   const navlink=useNavigate();
 
   const handleClick= async ()=>{
-     console.log("✅ Logout button clicked"); // debugging
   
-
     try{
     const res=await axios.post("http://localhost:3000/logout",{}, { withCredentials: true});
-     console.log(res.data);
+   
      dispatch(removeUser());
     navlink("/login");
 
@@ -63,11 +61,11 @@ const dispatch=useDispatch();
 </h1>
 
 
-      <div className="space-x-5 bg-blue-950">
+      <div className="space-x-5 bg-blue-950 ">
   
   
 
-      <div className="space-x-5 bg-blue-950 relative ml-60" ref={dropdownRef}>
+      <div className="space-x-5 bg-blue-950 relative ml-96" ref={dropdownRef}>
   {user&&<img
     src={user.photoUrl}
     alt="profile"

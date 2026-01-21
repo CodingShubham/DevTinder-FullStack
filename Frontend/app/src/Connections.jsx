@@ -36,7 +36,7 @@ useEffect(() => {
       <h1 className='text-center font-semi-bold text-2xl'>Connections</h1>
      {
       connections.map((connection)=>{
-         console.log("PHOTO URL:", connection.photoUrl);
+    
         return(
           <div className='flex justify-center'>  
           <div className='text-xl mx-7 flex justify-center space-x-2 mt-5 items-center  bg-gray-700 w-80 h-45 rounded-md'>

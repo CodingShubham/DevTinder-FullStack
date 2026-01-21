@@ -32,7 +32,7 @@ function Profile() {
 
 try{
     const res=await axios.patch("http://localhost:3000/profile/edit",{firstName,lastName,photoUrl,age,gender,about},{withCredentials: true});
-    console.log("edit: ",res.data);
+
     dispatch(addUser(res.data));
     setToast(true);
 
@@ -98,12 +98,9 @@ try{
           />
 
           <label className="text-white mt-3 text-base">Gender</label>
-          <input
-            value={gender}
-            onChange={(e) => setgender(e.target.value)}
-            className="bg-black rounded-lg text-center text-base text-white"
-            type="text"
-          />
+
+              <select value={gender} onChange={(e) => setgender(e.target.value)} className="bg-black  rounded-lg text-center text-base text-white" ><option value="Male">Male</option> <option value="Female">Female</option></select>
+
 
           <label className="text-white mt-3 text-base">About</label>
           <textarea
