@@ -3,6 +3,7 @@ import axios from "axios"
 import { addUser } from './utils/userSlice';
 import{useSelector,useDispatch} from "react-redux"
 import CardFeed from './CardFeed';
+import { BASE_URL } from './utils/constants';
 
 function Profile() {
    const user=useSelector((store)=>store.user);
@@ -31,7 +32,7 @@ function Profile() {
      e.preventDefault();
 
 try{
-    const res=await axios.patch("http://localhost:3000/profile/edit",{firstName,lastName,photoUrl,age,gender,about},{withCredentials: true});
+    const res=await axios.patch(BASE_URL+"/profile/edit",{firstName,lastName,photoUrl,age,gender,about},{withCredentials: true});
 
     dispatch(addUser(res.data));
     setToast(true);

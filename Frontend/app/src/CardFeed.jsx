@@ -2,6 +2,7 @@
 import { useDispatch } from 'react-redux';
 import { removeUserFeed } from './utils/feedSlice';
 import axios from 'axios';
+import { BASE_URL } from './utils/constants';
 
 function CardFeed({user}) {
   // console.log("user",user);
@@ -11,7 +12,7 @@ const dispatch=useDispatch();
   const handleFeed= async(status)=>{
     try{
 
-      const res=await axios.post("http://localhost:3000/request/send/"+status+"/"+_id,{},{withCredentials:true});
+      const res=await axios.post(BASE_URL+"/request/send/"+status+"/"+_id,{},{withCredentials:true});
       dispatch(removeUserFeed(_id));
 
     }

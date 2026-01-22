@@ -4,6 +4,7 @@ import {  useNavigate, Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "./utils/userSlice";
+import { BASE_URL } from "./utils/constants";
 
 export default function Navbar(){
   
@@ -18,7 +19,7 @@ const dispatch=useDispatch();
   const handleClick= async ()=>{
   
     try{
-    const res=await axios.post("http://localhost:3000/logout",{}, { withCredentials: true});
+    const res=await axios.post(BASE_URL+"/logout",{}, { withCredentials: true});
    
      dispatch(removeUser());
     navlink("/login");

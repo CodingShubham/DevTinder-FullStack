@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addUser } from './utils/userSlice.js';
 import { useDispatch } from "react-redux";
+import { BASE_URL } from './utils/constants.js';
 
 
 function Login() {
@@ -21,9 +22,10 @@ if (!email || !password) {
     alert("Please enter both email and password");
     return;
   }
+  // sudo systemctl restart nginx    sudo nano /etc/nginx/sites-available/default
     try {
       const res = await axios.post(
-        "http://localhost:3000/login",
+        BASE_URL+"/login",
         {
           emailId: email,
           password: password,
@@ -56,7 +58,7 @@ if (!email || !password) {
 
       try{
          e.preventDefault();
-        const res=await axios.post("http://localhost:3000/signup",{ firstName: firstname,
+        const res=await axios.post(BASE_URL+"/signup",{ firstName: firstname,
         lastName: lasttname,
         emailId: email,
         password},{withCredentials:true})
