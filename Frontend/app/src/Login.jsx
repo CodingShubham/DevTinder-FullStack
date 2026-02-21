@@ -129,7 +129,7 @@ if (!email || !password) {
 
           <button
             type="submit"
-            className="  w-[80px] mt-10 mb-6  border rounded-md p-1 bg-white"
+            className="  w-[80px] mt-10 mb-6  border rounded-md p-1 "
             
           >
            {islogin? " Login":"Sign Up"}

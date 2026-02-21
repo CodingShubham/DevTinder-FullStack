@@ -11,6 +11,7 @@ import Feed from "./Feed.jsx"
 import appStore from "./utils/appStore.js"
 import Connections from "./Connections.jsx"
 import Requests from "./Requests.jsx"
+import Chat from "./Chat.jsx"
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -24,6 +25,8 @@ createRoot(document.getElementById("root")).render(
             <Route path="feed" element={<Feed />} />
              <Route path="connections" element={<Connections />} />
              <Route path="requests" element={<Requests />} />
+             <Route path="chat/:targetUserId" element={<Chat/>} />
+             
           </Route>
         </Routes>
       </BrowserRouter>

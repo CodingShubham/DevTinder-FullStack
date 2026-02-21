@@ -6,7 +6,7 @@ const User=require("../Model/user");
 
 
 
-userRouter.get("/user/requests/recieved", userAuth, async(req,res)=>{
+userRouter.get("/user/requests/received", userAuth, async(req,res)=>{
 
     try{
 
@@ -101,7 +101,6 @@ userRouter.get("/user/requests/recieved", userAuth, async(req,res)=>{
             const user = await User.find({ $and: [{ _id: { $nin: Array.from(hideUserFromFeed) } }, { _id: { $ne: loggedINuser._id } }
             ] })
             .select("firstName lastName  emailId age gender photoUrl about").skip(skip).limit(limit);
-
 
           
             res.send(user);

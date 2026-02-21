@@ -1,138 +1,163 @@
-import React, { useState, useEffect} from 'react'
-import axios from "axios"
-import { addUser } from './utils/userSlice';
-import{useSelector,useDispatch} from "react-redux"
-import CardFeed from './CardFeed';
-import { BASE_URL } from './utils/constants';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { addUser } from "./utils/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import CardFeed from "./CardFeed";
+import { BASE_URL } from "./utils/constants";
 
 function Profile() {
-   const user=useSelector((store)=>store.user);
-  const[firstName,setFirstName]=useState("");
-  const[lastName,setlastName]=useState("");
-  const[photoUrl,setphotoUrl]=useState("");
-  const[age,setage]=useState("");
-  const[gender,setgender]=useState("");
-  const[about,setabout]=useState("");
-  const dispatch=useDispatch();
-    const[toast,setToast]=useState(false);
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
-   useEffect(() => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [about, setAbout] = useState("");
+  const [toast, setToast] = useState(false);
+
+  // Populate form when user loads
+  useEffect(() => {
     if (user) {
       setFirstName(user.firstName || "");
-      setlastName(user.lastName || "");
-      setphotoUrl(user.photoUrl || "");
-      setage(user.age || "");
-      setgender(user.gender || "");
-      setabout(user.about || "");
+      setLastName(user.lastName || "");
+      setPhotoUrl(user.photoUrl || "");
+      setAge(user.age || "");
+      setGender(user.gender || "");
+      setAbout(user.about || "");
     }
   }, [user]);
 
+  const saveProfile = async (e) => {
+    e.preventDefault();
 
-  const saveProfile= async(e)=>{
-     e.preventDefault();
+    try {
+      const res = await axios.patch(
+        BASE_URL + "/profile/edit",
+        { firstName, lastName, photoUrl, age, gender, about },
+        { withCredentials: true }
+      );
 
-try{
-    const res=await axios.patch(BASE_URL+"/profile/edit",{firstName,lastName,photoUrl,age,gender,about},{withCredentials: true});
+      dispatch(addUser(res.data));
+      setToast(true);
 
-    dispatch(addUser(res.data));
-    setToast(true);
-
-    setTimeout(()=>{
-
-      setToast(false);
-
-    },1000)
-  }
-
-  catch(err){
-    console.error(err.message);
-
-  }
-
-  }
-
+      setTimeout(() => {
+        setToast(false);
+      }, 1500);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
-
     <>
-  { toast && ( <div className="toast toast-top toast-end z-50 flex justify-center  ">
-    <div className="alert alert-success  bg-green-400 p-3 rounded-md fixed ">
-      <span className=' bg-green-400  '>Profile updated successfully!</span>
-    </div>
-  </div>)}
-      <div className='flex justify-center space-x-8'>
-        
-     <div className="flex justify-center mt-5">
-      <div className="min-h-[100px] w-80 flex justify-center border rounded-lg text-xl items-center">
-        <form className="flex flex-col">
+      {/* Toast */}
+      {toast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+          <div className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
+            Profile updated successfully!
+          </div>
+        </div>
+      )}
 
-          <label className="text-white my-2 text-base">First Name</label>
-          <input
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="bg-black rounded-lg text-base text-center text-white"
-            type="text"
-          />
+      {/* Main Layout */}
+      <div className="flex flex-col lg:flex-row justify-center items-start gap-10 p-6">
 
-          <label className="text-white mt-3 text-base my-2 ">Last Name</label>
-          <input
-            value={lastName}
-            onChange={(e) => setlastName(e.target.value)}
-            className="bg-black rounded-lg text-center text-base text-white"
-            type="text"
-          />
+        {/* Form Section */}
+        <div className="w-full max-w-sm bg-base-100 shadow-xl rounded-xl p-6">
+          <form onSubmit={saveProfile} className="flex flex-col gap-4">
 
-          <label className="text-white mt-3  my-2 text-base">Photo URL</label>
-          <input
-            value={photoUrl}
-            onChange={(e) => setphotoUrl(e.target.value)}
-            className="bg-black rounded-lg text-center text-base text-white"
-            type="url"
-          />
+            <div>
+              <label className="block mb-1 font-medium">First Name</label>
+              <input
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="w-full border rounded-md p-2"
+                type="text"
+              />
+            </div>
 
-          <label className="text-white mt-3 text-base">Age</label>
-          <input
-            value={age}
-            onChange={(e) => setage(e.target.value)}
-            className="bg-black rounded-lg text-center text-base text-white"
-            type="number"
-          />
+            <div>
+              <label className="block mb-1 font-medium">Last Name</label>
+              <input
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="w-full border rounded-md p-2"
+                type="text"
+              />
+            </div>
 
-          <label className="text-white mt-3 text-base">Gender</label>
+            <div>
+              <label className="block mb-1 font-medium">Photo URL</label>
+              <input
+                value={photoUrl}
+                onChange={(e) => setPhotoUrl(e.target.value)}
+                className="w-full border rounded-md p-2"
+                type="url"
+              />
+            </div>
 
-              <select value={gender} onChange={(e) => setgender(e.target.value)} className="bg-black  rounded-lg text-center text-base text-white" ><option value="Male">Male</option> <option value="Female">Female</option></select>
+            <div>
+              <label className="block mb-1 font-medium">Age</label>
+              <input
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                className="w-full border rounded-md p-2"
+                type="number"
+              />
+            </div>
 
+            <div>
+              <label className="block mb-1 font-medium">Gender</label>
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="w-full border rounded-md p-2"
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
 
-          <label className="text-white mt-3 text-base">About</label>
-          <textarea
-            value={about}
-            onChange={(e) => setabout(e.target.value)}
-            className="bg-black rounded-lg text-base text-white p-2"
-          />
+            <div>
+              <label className="block mb-1 font-medium">About</label>
+              <textarea
+                value={about}
+                onChange={(e) => setAbout(e.target.value)}
+                className="w-full border rounded-md p-2"
+              />
+            </div>
 
-          <div className="flex justify-center mb-7">
             <button
-              onClick={saveProfile}
               type="submit"
-              className="mt-10 bg-blue-400 text-black px-4 py-1 rounded-lg"
+              className="bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 transition"
             >
               Save Profile
             </button>
-          </div>
 
-        </form>
+          </form>
+        </div>
+
+        {/* Live Preview Card */}
+        {user && (
+          <CardFeed
+            user={{
+              _id: user._id,  // Important to prevent crash
+              firstName,
+              lastName,
+              photoUrl,
+              age,
+              gender,
+              about,
+            }}
+          />
+        )}
+
       </div>
-    </div>
-
-     <CardFeed user={{firstName,lastName,photoUrl,age,gender,about}} />
-     
-     </div>
-     
-    
-</>
+    </>
   );
-
- 
 }
 
-export default Profile  
+export default Profile;

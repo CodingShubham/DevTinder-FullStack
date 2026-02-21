@@ -34,7 +34,7 @@ export default function APP() {
   }, []);
 
   return (
-    <div>
+    <div >
       <Navbar />
       <Outlet />
     </div>

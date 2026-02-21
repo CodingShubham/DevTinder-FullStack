@@ -53,85 +53,84 @@ const dispatch=useDispatch();
 
 
     return(
+<nav className="w-full bg-blue-950 px-6 py-4 shadow-md">
+    <div className="max-w-7xl mx-auto flex justify-between items-center">
 
-    <div  className="flex space-x-60 p-5 justify-center text-2xl bg-blue-950">
-      <h1 className="bg-blue-950 font-bold text-gray-300 cursor-pointer">
-  <Link to="/login" className=" bg-inherit">
-    DEVTINIDER
-  </Link>
-</h1>
-
-
-      <div className="space-x-5 bg-blue-950 ">
-  
-  
-
-      <div className="space-x-5 bg-blue-950 relative ml-96" ref={dropdownRef}>
-  {user&&<img
-    src={user.photoUrl}
-    alt="profile"
-    onClick={() => setOpen(!open)}
-    className="w-10 h-10 rounded-full cursor-pointer border object-cover "
-  />}
-
-  {open && (
-    <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border overflow-hidden text-base">
-      <Link
-        to={"/profile"}
-        className="block px-4 bg-white py-2 hover:bg-gray-500"
-        onClick={() => setOpen(false)}
-      >
-        Profile
-      </Link>
-
-      <Link
-        to="/connections"
-        className="block bg-white px-4 py-2 hover:bg-gray-500"
-        onClick={() => setOpen(false)}
-      >
-        Connections
-      </Link>
-
-
-      
-      <Link
-        to="/requests"
-        className="block bg-white px-4 py-2 hover:bg-gray-500"
-        onClick={() => setOpen(false)}
-      >
-        Requests
-      </Link>
-
-         
+      {/* Logo */}
       <Link
         to="/feed"
-        className="block bg-white px-4 py-2 hover:bg-gray-500"
-        onClick={() => setOpen(false)}
+        className="text-2xl font-bold text-gray-200 hover:text-white transition"
       >
-        Feed
+        DEVTINIDER
       </Link>
 
-      <button
-        onClick={()=>{
-        setOpen(false);
-        handleClick();
-        }}
-        className="w-full bg-white text-left px-4 py-2 hover:bg-gray-500 text-black-500"
-      >
-        Logout
-      </button>
+      {/* Profile Dropdown */}
+      {user && (
+        <div className="relative" ref={dropdownRef}>
+          <img
+            src={user.photoUrl}
+            alt="profile"
+            onClick={() => setOpen(!open)}
+            className="w-10 h-10 rounded-full cursor-pointer border-2 border-white object-cover"
+          />
+
+          {open && (
+            <div className="absolute right-0 mt-3 w-44 bg-white rounded-lg shadow-lg overflow-hidden text-sm text-gray-700">
+              
+              <Link
+                to="/profile"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Profile
+              </Link>
+
+              <Link
+                to="/connections"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Connections
+              </Link>
+
+              <Link
+                to="/requests"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Requests
+              </Link>
+
+              <Link
+                to="/feed"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2 hover:bg-gray-100"
+              >
+                Feed
+              </Link>
+
+              <div className="border-t"></div>
+
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  handleClick();
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-red-50 text-red-600"
+              >
+                Logout
+              </button>
+
+            </div>
+          )}
+        </div>
+      )}
+
     </div>
-  )}
-</div>
+  </nav>
 
+    );
 
-      </div>
-
-  
-      
-  
-    </div>
-  )
 }
 
     

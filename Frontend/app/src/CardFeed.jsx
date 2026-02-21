@@ -15,7 +15,7 @@ const dispatch=useDispatch();
       const res=await axios.post(BASE_URL+"/request/send/"+status+"/"+_id,{},{withCredentials:true});
       dispatch(removeUserFeed(_id));
 
-    }
+    }     
 
     catch(err){
       console.log(err);
@@ -26,7 +26,7 @@ const dispatch=useDispatch();
   
 
   return (
-    <div className="min-h-screen bg-base-200 flex justify-center items-center px-6  ">
+    <div className="min-h-screen  flex justify-center items-center px-6  ">
       
       <div className="card w-96 border-black rounded-md bg-base-100 shadow-xl overflow-hidden hover:scale-105 transition-all duration-300 ">
         
@@ -40,7 +40,7 @@ const dispatch=useDispatch();
         </div>
 
         {/* Bottom Half - Content */}
-        <div className="card-body text-center text-white ">
+        <div className="card-body text-center text-white mt-30 ">
           <h2 className="card-title justify-center">{firstName+" "+lastName }</h2>
           <h2 className="card-title justify-center">{"Age-"+age }</h2>
           

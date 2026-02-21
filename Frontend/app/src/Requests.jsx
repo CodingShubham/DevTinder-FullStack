@@ -4,99 +4,93 @@ import { useSelector, useDispatch } from "react-redux";
 import { addRequests } from "./utils/requestsSlice";
 import { BASE_URL } from "./utils/constants";
 
+function Requests() {
+  const dispatch = useDispatch();
+  const requests = useSelector((store) => store.requests || []);
 
-function Requests(){
-      const dispatch=useDispatch();
-      const request=useSelector((store)=>store.requests || []);
-       const requestReceived= async()=>{
-            try{
+  const requestReceived = async () => {
+    try {
+      const res = await axios.get(
+        BASE_URL + "/user/requests/received",
+        { withCredentials: true }
+      );
 
-              const res= await axios.get(BASE_URL+"/user/requests/recieved",{withCredentials:true}) 
-              dispatch(addRequests(res.data.data));
-             
-              
-            }
+      dispatch(addRequests(res.data.data));
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-            catch(err){
-              console.error(err);
+  const handleRequest = async (status, _id) => {
+    try {
+      await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + _id,
+        {},
+        { withCredentials: true }
+      );
 
-            }
-        }  
-        
+      // Refresh list after action
+      requestReceived();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-          const handleRequest= async (status, _id)=>{
+  useEffect(() => {
+    requestReceived();
+  }, []);
 
-              try{
+  return (
+    <div className="min-h-screen text-white px-4 py-8">
+      <h1 className="text-2xl font-semibold text-center mb-8">
+        Friend Requests
+      </h1>
 
-            const res=await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
+      {requests.length === 0 && (
+        <p className="text-center text-gray-400">
+          No friend requests available
+        </p>
+      )}
 
-              }
-
-              catch(err){
-                console.log(err);
-              }
-
-          }
-      
-        
-
-        useEffect(()=>{
-          requestReceived();
-        },[])
-    
-
-
-return(
-    <div className="text-white text-center mt-5">
-           <h1 className="text-xl font-semibold ">Friend Requests</h1>
-       {
-        request.map((request)=>{
-
-          return(
-            <div key={request._id} className=" text-center text-lg ">
-         
-
-              <div className="flex justify-center">
-
-              <div className="text-base  mx-7 flex justify-start space-x-5 mt-10 items-center  bg-gray-700 w-1/3 h-45 rounded-lg">
-              <img className='w-14 h-14 ml-2.5 object-cover rounded-full ' src={request?.fromUserId?.photoUrl} />
-              <h2 className="bg-gray-700 text-lg">{request?.fromUserId?.firstName}</h2>
-
-          
-
-                    <button onClick={()=>handleRequest("accepted",request._id)}
-
-                    className="w-18 bg-black text-base  justify-center items-center  rounded-full  px-4 py-2 text-black-500 hover:bg-blue-700 "
-                  >
-                    Acccept
-                  </button>
-
-
-                  <button
-                    onClick={()=>handleRequest("rejected",request._id)}
-
-                    className=" flex justify-center text-base  items-center w-24 bg-black  rounded-full px-4 py-2 hover:bg-red-500 text-black-700 "
-                  >
-                    Reject
-                  </button>
-
-
-              </div>
-              
-              </div>
-
+      <div className="flex flex-col items-center gap-6">
+        {requests.map((req) => (
+          <div
+            key={req._id}
+            className="w-full max-w-xl bg-gray-800 rounded-xl shadow-md p-5 flex items-center justify-between"
+          >
+            {/* Left Section */}
+            <div className="flex items-center gap-4">
+              <img
+                className="w-14 h-14 object-cover rounded-full border"
+                src={req?.fromUserId?.photoUrl}
+                alt="profile"
+              />
+              <h2 className="text-lg font-medium">
+                {req?.fromUserId?.firstName}
+              </h2>
             </div>
-          )
 
-        })
-       }
-        
-        
-        </div>
+            {/* Right Section */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => handleRequest("accepted", req._id)}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition"
+              >
+                Accept
+              </button>
 
-    
-
-)
+              <button
+                onClick={() => handleRequest("rejected", req._id)}
+                className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition"
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Requests;
