@@ -197,7 +197,9 @@ socket.on("sendMessage", async({userId,targetUserId,text})=>{
 
       await chat.save();
 
-    io.to(room).emit("messageReceived",{ senderId: user._id, firstName:user.firstName, lastName:user.lastName, text, photoUrl:user.photoUrl })
+      let savedMessage=chat.messages[chat.messages.length-1];
+
+    io.to(room).emit("messageReceived",{ senderId: user._id, firstName:user.firstName, lastName:user.lastName, text:savedMessage.text, photoUrl:user.photoUrl, createdAt:savedMessage.createdAt })
     console.log(text)
 
     }

@@ -17,7 +17,6 @@ function Profile() {
   const [about, setAbout] = useState("");
   const [toast, setToast] = useState(false);
 
-  // Populate form when user loads
   useEffect(() => {
     if (user) {
       setFirstName(user.firstName || "");
@@ -54,66 +53,76 @@ function Profile() {
     <>
       {/* Toast */}
       {toast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-          <div className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-4">
+          <div className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg text-sm sm:text-base text-center">
             Profile updated successfully!
           </div>
         </div>
       )}
 
       {/* Main Layout */}
-      <div className="flex flex-col lg:flex-row justify-center items-start gap-10 p-6">
+      <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-8 lg:gap-12 px-4 sm:px-6 py-6 max-w-7xl mx-auto">
 
         {/* Form Section */}
-        <div className="w-full max-w-sm bg-base-100 shadow-xl rounded-xl p-6">
+        <div className="w-full max-w-md bg-base-100 shadow-xl rounded-xl p-5 sm:p-6">
           <form onSubmit={saveProfile} className="flex flex-col gap-4">
 
             <div>
-              <label className="block mb-1 font-medium">First Name</label>
+              <label className="block mb-1 font-medium text-sm sm:text-base">
+                First Name
+              </label>
               <input
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2 text-sm sm:text-base"
                 type="text"
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Last Name</label>
+              <label className="block mb-1 font-medium text-sm sm:text-base">
+                Last Name
+              </label>
               <input
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2 text-sm sm:text-base"
                 type="text"
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Photo URL</label>
+              <label className="block mb-1 font-medium text-sm sm:text-base">
+                Photo URL
+              </label>
               <input
                 value={photoUrl}
                 onChange={(e) => setPhotoUrl(e.target.value)}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2 text-sm sm:text-base"
                 type="url"
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Age</label>
+              <label className="block mb-1 font-medium text-sm sm:text-base">
+                Age
+              </label>
               <input
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2 text-sm sm:text-base"
                 type="number"
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Gender</label>
+              <label className="block mb-1 font-medium text-sm sm:text-base">
+                Gender
+              </label>
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2 text-sm sm:text-base"
               >
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
@@ -122,17 +131,20 @@ function Profile() {
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">About</label>
+              <label className="block mb-1 font-medium text-sm sm:text-base">
+                About
+              </label>
               <textarea
                 value={about}
                 onChange={(e) => setAbout(e.target.value)}
-                className="w-full border rounded-md p-2"
+                className="w-full border rounded-md p-2 text-sm sm:text-base resize-none"
+                rows="3"
               />
             </div>
 
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 transition"
+              className="bg-blue-500 text-white py-2 rounded-md mt-4 hover:bg-blue-600 transition text-sm sm:text-base"
             >
               Save Profile
             </button>
@@ -140,19 +152,21 @@ function Profile() {
           </form>
         </div>
 
-        {/* Live Preview Card */}
+        {/* Preview Card */}
         {user && (
-          <CardFeed
-            user={{
-              _id: user._id,  // Important to prevent crash
-              firstName,
-              lastName,
-              photoUrl,
-              age,
-              gender,
-              about,
-            }}
-          />
+          <div className="w-full max-w-md">
+            <CardFeed
+              user={{
+                _id: user._id,
+                firstName,
+                lastName,
+                photoUrl,
+                age,
+                gender,
+                about,
+              }}
+            />
+          </div>
         )}
 
       </div>

@@ -6,6 +6,7 @@ const User=require("../Model/user");
 
 
 
+
 userRouter.get("/user/requests/received", userAuth, async(req,res)=>{
 
     try{
@@ -124,6 +125,24 @@ userRouter.get("/user/requests/received", userAuth, async(req,res)=>{
     });
 
   
+        userRouter.get("/user/:id",userAuth,async(req,res)=>{
+
+    try{
+
+        const ids=req.params.id;
+        if(!ids) return res.status(400).json({ message: "No user IDs provided" });
+        const idArray=ids.split(",").map((id=>id.trim()))
+
+        const user= await User.find({_id:{$in: idArray}}).select("firstName lastName photoUrl")
+        res.json({data:user})
+
+    }
+
+    catch(err){
+    res.status(500).json({ message: err.message });
+
+    }
+})
 
 
 
