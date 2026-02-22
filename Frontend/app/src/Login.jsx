@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { BASE_URL } from './utils/constants.js';
 
 function Login() {
-  const [email, setEmail] = useState("ss9824473@gmail.com");
-  const [password, setPassword] = useState("Shubham@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [islogin, setIslogin] = useState(true);
