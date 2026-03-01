@@ -79,7 +79,7 @@ userRouter.get("/user/requests/received", userAuth, async(req,res)=>{
         try{
 
             const page=parseInt(req.query.page)||1;
-            let limit=parseInt(req.query.limit)||3
+            let limit=parseInt(req.query.limit)||50
             const skip=(page-1)*limit;
             // limit=limit>10?3:limit;
 
