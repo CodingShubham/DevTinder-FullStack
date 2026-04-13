@@ -122,10 +122,7 @@
 
 
 
-
-
-
-
+require("dotenv").config();
 const connectDB=require("./config/database");
 const userModel=require("./Model/user");
 const express=require("express");
@@ -135,14 +132,13 @@ const authRouter=require("./routes/auth");
 const {profileApi}=require("./routes/profile");
 const {requestRouter}=require("./routes/request");
 const http=require("http")
-
 const cors=require("cors");
 const userRouter = require("./routes/user");
 const Chat=require("./Model/chat")
 
 
 app.use(cors({
-  origin: "http://localhost:5173", // your React dev URL
+  origin: "http://localhost:5173", 
   credentials: true
 }));
 
@@ -242,39 +238,6 @@ connectDB().then(()=>{
     app.use("/",userRouter);
     app.use("/",chatRouter);
 
-
-
-
-
-
-
-
-
-
-    // //Deleting data from database
-    // app.delete("/user/:id", userAuth, async(req,res)=>{
-
-    //     const userId=req.params.id;
-
-    //     try{
-
-    //         const data= await userModel.findByIdAndDelete(userId);
-    //         res.send("deleted");
-    //     }
-
-    //     catch(err){
-
-    //         res.status(400).send("Unable to delete");
-
-    //     }
-
-
-    // });
-
-
-
-    // // UPDATING Data In Database
-  
 
 
 
